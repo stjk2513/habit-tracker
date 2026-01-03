@@ -4,6 +4,8 @@
   <div style="padding: 2rem; font-family: system-ui">
     <nav style="margin-bottom: 2rem">
       <router-link to="/" style="margin-right: 1rem">Home</router-link>
+      <router-link to="/incrementer" style="margin-right: 1rem">Incrementer</router-link>
+      <router-link to="/todos" style="margin-right: 1rem">Todos</router-link>
       <router-link to="/about">About</router-link>
     </nav>
     <router-view />
