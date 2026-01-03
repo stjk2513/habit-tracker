@@ -4,6 +4,8 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import IncrementerView from '../views/IncrementerView.vue'
 import TodoListView from '../views/TodoListView.vue'
+import HabitsView from '../views/HabitsView.vue'
+import AddHabitView from '../views/AddHabitView.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -25,6 +27,16 @@ const routes: RouteRecordRaw[] = [
     path: '/todos',
     name: 'todos',
     component: TodoListView
+  },
+  {
+    path: '/habits',
+    name: 'habits',
+    component: HabitsView
+  },
+  {
+    path: '/habits/add',
+    name: 'add-habit',
+    component: AddHabitView
   }
 ]
 
