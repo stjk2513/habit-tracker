@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import { RootState } from '../store'
+import type { RootState } from '../store'
 
 const store = useStore<RootState>()
 

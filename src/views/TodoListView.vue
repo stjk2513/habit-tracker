@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
-import { RootState } from '../store'
+import type { RootState } from '../store'
 import type { Todo } from '../store/modules/todos'
 
 const store = useStore<RootState>()

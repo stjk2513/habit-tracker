@@ -31,13 +31,14 @@ const saveHabits = (habits: Habit[]) => {
 // Get today's date in YYYY-MM-DD format
 const getTodayString = (): string => {
   const today = new Date()
-  return today.toISOString().split('T')[0]
+  const result = today.toISOString().split('T')[0]
+  return result!
 }
 
 // Get current day of week
 const getCurrentDayOfWeek = (): DayOfWeek => {
   const days: DayOfWeek[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
-  return days[new Date().getDay()]
+  return days[new Date().getDay()]!
 }
 
 // Get start of current week (Monday)
@@ -46,7 +47,8 @@ const getWeekStart = (date: Date = new Date()): string => {
   const day = d.getDay()
   const diff = d.getDate() - day + (day === 0 ? -6 : 1) // Adjust when day is Sunday
   d.setDate(diff)
-  return d.toISOString().split('T')[0]
+  const result = d.toISOString().split('T')[0]
+  return result!
 }
 
 const habitsModule: Module<HabitsState, RootState> = {
@@ -93,7 +95,7 @@ const habitsModule: Module<HabitsState, RootState> = {
       for (let i = 0; i < 7; i++) {
         const date = new Date(weekStartDate)
         date.setDate(date.getDate() + i)
-        const dateStr = date.toISOString().split('T')[0]
+        const dateStr = date.toISOString().split('T')[0]!
         total += habit.completions[dateStr] ?? 0
       }
 
@@ -186,7 +188,7 @@ const habitsModule: Module<HabitsState, RootState> = {
       timesPerWeek?: number
     }) {
       const habit: Habit = {
-        id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+        id: Date.now().toString() + Math.random().toString(36).substring(2, 11),
         name: payload.name,
         description: payload.description,
         frequencyType: payload.frequencyType,
@@ -228,7 +230,7 @@ function calculateStreak(habit: Habit): number {
   let currentDate = new Date(today)
 
   for (let i = 0; i < 365; i++) { // Max check 1 year
-    const dateStr = currentDate.toISOString().split('T')[0]
+    const dateStr = currentDate.toISOString().split('T')[0]!
 
     if (habit.completions[dateStr] && habit.completions[dateStr] > 0) {
       streak++
