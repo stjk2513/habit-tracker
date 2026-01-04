@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import type { RootState } from '../store'
 import type { Habit } from '../types/habit'
+import HabitStreakVisualizer from '../components/HabitStreakVisualizer.vue'
 
 const store = useStore<RootState>()
 const router = useRouter()
 
 const todaysHabits = computed<Habit[]>(() => store.getters['habits/todaysHabits'])
 const allHabits = computed<Habit[]>(() => store.getters['habits/allHabits'])
+const selectedHabitForVisualizer = ref<string | null>(null)
 
 const getCompletionToday = (habitId: string): number => {
   return store.getters['habits/habitCompletionToday'](habitId)
@@ -72,6 +74,14 @@ const getProgressForHabit = (habit: Habit): { current: number; target: number } 
     target: 1
   }
 }
+
+const toggleVisualizer = (habitId: string) => {
+  if (selectedHabitForVisualizer.value === habitId) {
+    selectedHabitForVisualizer.value = null
+  } else {
+    selectedHabitForVisualizer.value = habitId
+  }
+}
 </script>
 
 <template>
@@ -109,6 +119,13 @@ const getProgressForHabit = (habit: Habit): { current: number; target: number } 
                 <span class="stats">
                   Streak: {{ getStats(habit.id)?.currentStreak || 0 }} days
                 </span>
+                <button
+                  @click="toggleVisualizer(habit.id)"
+                  class="btn-visualizer"
+                  :class="{ active: selectedHabitForVisualizer === habit.id }"
+                >
+                  {{ selectedHabitForVisualizer === habit.id ? '📊 Hide Activity' : '📊 Show Activity' }}
+                </button>
               </div>
             </div>
 
@@ -143,6 +160,12 @@ const getProgressForHabit = (habit: Habit): { current: number; target: number } 
               </div>
             </div>
           </div>
+
+          <HabitStreakVisualizer
+            v-if="selectedHabitForVisualizer === habit.id"
+            :habit="habit"
+            :weeks="20"
+          />
         </div>
       </div>
 
@@ -264,13 +287,37 @@ h2 {
 .meta {
   display: flex;
   gap: 1rem;
+  align-items: center;
   font-size: 0.85rem;
   color: #888;
+  flex-wrap: wrap;
 }
 
 .frequency {
   font-weight: 500;
   color: #42b983;
+}
+
+.btn-visualizer {
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #42b983;
+  background: white;
+  color: #42b983;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.btn-visualizer:hover {
+  background: #42b983;
+  color: white;
+}
+
+.btn-visualizer.active {
+  background: #42b983;
+  color: white;
 }
 
 .habit-actions {
