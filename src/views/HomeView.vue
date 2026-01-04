@@ -15,6 +15,12 @@
           <p>Track your daily habits and build better routines</p>
         </router-link>
 
+        <router-link to="/kanban" class="feature-card">
+          <span class="icon">📋</span>
+          <h3>Kanban Board</h3>
+          <p>Organize tasks with drag-and-drop columns</p>
+        </router-link>
+
         <router-link to="/todos" class="feature-card">
           <span class="icon">📝</span>
           <h3>Todo List</h3>
