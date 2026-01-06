@@ -43,6 +43,10 @@ const deleteHabit = (habitId: string) => {
   }
 }
 
+const editHabit = (habitId: string) => {
+  router.push(`/habits/edit/${habitId}`)
+}
+
 const goToAddHabit = () => {
   router.push('/habits/add')
 }
@@ -150,6 +154,12 @@ const toggleVisualizer = (habitId: string) => {
                   :class="isCompleteToday(habit.id) ? 'btn-success' : 'btn-primary'"
                 >
                   ✓
+                </button>
+                <button
+                  @click="editHabit(habit.id)"
+                  class="btn btn-small btn-edit"
+                >
+                  ✎
                 </button>
                 <button
                   @click="deleteHabit(habit.id)"
@@ -387,6 +397,15 @@ h2 {
 
 .btn-danger:hover {
   background: #c0392b;
+}
+
+.btn-edit {
+  background: #3498db;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #2980b9;
 }
 
 .habits-list.compact {

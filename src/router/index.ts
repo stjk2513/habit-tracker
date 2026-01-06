@@ -6,6 +6,7 @@ import IncrementerView from '../views/IncrementerView.vue'
 import TodoListView from '../views/TodoListView.vue'
 import HabitsView from '../views/HabitsView.vue'
 import AddHabitView from '../views/AddHabitView.vue'
+import EditHabitView from '../views/EditHabitView.vue'
 import KanbanView from '../views/KanbanView.vue'
 
 const routes: RouteRecordRaw[] = [
@@ -38,6 +39,11 @@ const routes: RouteRecordRaw[] = [
     path: '/habits/add',
     name: 'add-habit',
     component: AddHabitView
+  },
+  {
+    path: '/habits/edit/:id',
+    name: 'edit-habit',
+    component: EditHabitView
   },
   {
     path: '/kanban',
